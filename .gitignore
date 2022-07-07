@@ -130,3 +130,6 @@ dmypy.json
 
 # Docker
 .dockerignore
+
+# Mac
+.DS_Store
