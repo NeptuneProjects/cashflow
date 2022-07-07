@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>CashFlow App</h2>
+            <p>
+                Welcome! CashFlow App is a simple tool designed to map out your expected income and expenses over the course of a month.  Upload a formatted Excel spreadsheet with income and expenses by date, and the app will display a cash flow chart along with a projected daily balance.  This tool is meant to help visualize your cash flow over the course of a month to ensure liquidity at all times.
+            </p>
+            <hr>
+            <h3>Download Template</h3>
+            <p>
+                You can download a template of the formatted spreadsheet here.
+            </p>
+            <p>
+                <a href="{{ url_for('static', path='/download/Cash_Flow_Model.xlsx') }}" class="btn btn-primary btn-sm" role="button">Download</a>
+            </p>
+            <p>
+                Fill in your income under the section titled "credits," and expenses under "debits." The "item" column is a description of the line item; in the "day" column specifiy the day of the month; and fill in the dollar value in the "amount" column.  There is no limit to the number of line items.  When complete, upload the spreadsheet below.
+            </p>
+            <hr>
+            <h3>Upload File</h3>
+            <p>Upload your formatted spreadsheet here.  Currently only .xlsx and .csv are accepted, and only .xlsx has been tested.</p>
+            <div>
+                <form method="post" enctype="multipart/form-data" action="display">
+                    <input type="file" name="file">
+                    <input type="submit" value="Calculate">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

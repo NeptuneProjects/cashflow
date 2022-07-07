@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="chart" id="plotly-scatter">
+        </div>
+        <div class="table">
+            {{transactions | safe}}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var graph = {{ plot | safe }};
+    Plotly.newPlot('plotly-scatter', graph, {'width': 1700});
+</script>
+{% endblock %}
