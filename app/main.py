@@ -17,7 +17,11 @@ UPLOAD_DIR = Path("/code/app/upload")
 
 app = FastAPI()
 app.mount("/code/app/static", StaticFiles(directory="/code/app/static"), name="static")
-app.mount("/code/app/templates", StaticFiles(directory="/code/app/templates"), name="templates")
+app.mount(
+    "/code/app/templates",
+    StaticFiles(directory="/code/app/templates"),
+    name="templates",
+)
 templates = Jinja2Templates(directory="/code/app/templates")
 
 

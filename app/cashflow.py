@@ -56,12 +56,8 @@ def load_data(path, year, month):
         path = Path(path)
     colnames = ["Item", "Date", "Amount"]
 
-    df_credits = pd.read_excel(
-        path, header=1, usecols="A:C", names=colnames
-    ).dropna()
-    df_debits = pd.read_excel(
-        path, header=1, usecols="D:F", names=colnames
-    ).dropna()
+    df_credits = pd.read_excel(path, header=1, usecols="A:C", names=colnames).dropna()
+    df_debits = pd.read_excel(path, header=1, usecols="D:F", names=colnames).dropna()
 
     df_credits = format_df(df_credits, year, month)
     df_debits = format_df(df_debits, year, month)
