@@ -12,17 +12,23 @@ from werkzeug.utils import secure_filename
 
 from .cashflow import cashflow
 
+SMOKE_TEST = True
+WORKDIR = Path.cwd() / "app" if SMOKE_TEST else Path("/code")
+UPLOAD_DIR = WORKDIR / "upload"
+STATIC_DIR = WORKDIR / "static"
+TMPLT_DIR = WORKDIR / "templates"
 ALLOWED_EXTENSIONS = {"csv", "xlsx"}
-UPLOAD_DIR = Path("/code/app/upload")
 
 app = FastAPI()
-app.mount("/code/app/static", StaticFiles(directory="/code/app/static"), name="static")
+print(str(STATIC_DIR))
+# app.mount("/code/app/static", StaticFiles(directory="/code/app/static"), name="static")
+app.mount(str(STATIC_DIR), StaticFiles(directory=STATIC_DIR), name="static")
 app.mount(
-    "/code/app/templates",
-    StaticFiles(directory="/code/app/templates"),
+    str(TMPLT_DIR),
+    StaticFiles(directory=TMPLT_DIR),
     name="templates",
 )
-templates = Jinja2Templates(directory="/code/app/templates")
+templates = Jinja2Templates(directory=TMPLT_DIR)
 
 
 @app.exception_handler(RequestValidationError)
