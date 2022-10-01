@@ -20,8 +20,6 @@ TMPLT_DIR = WORKDIR / "templates"
 ALLOWED_EXTENSIONS = {"csv", "xlsx"}
 
 app = FastAPI()
-print(str(STATIC_DIR))
-# app.mount("/code/app/static", StaticFiles(directory="/code/app/static"), name="static")
 app.mount(str(STATIC_DIR), StaticFiles(directory=STATIC_DIR), name="static")
 app.mount(
     str(TMPLT_DIR),
