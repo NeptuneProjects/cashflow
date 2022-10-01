@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 
 from .cashflow import cashflow
 
-SMOKE_TEST = False
+SMOKE_TEST = True
 WORKDIR = Path.cwd() / "app" if SMOKE_TEST else Path("/code")
 UPLOAD_DIR = WORKDIR / "upload"
 STATIC_DIR = WORKDIR / "static"
@@ -46,6 +46,7 @@ async def display(request: Request, file: UploadFile = File(...)):
             "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
         )
 
+    print(len(file.filename))
     if _allowed_file(file.filename):
         try:
             contents = await file.read()
@@ -65,3 +66,12 @@ async def display(request: Request, file: UploadFile = File(...)):
             "display.html",
             {"request": request, "plot": plot, "transactions": transactions},
         )
+    elif not file.filename:
+        errmsg = "Please go back and select a file."
+    else:
+        errmsg = (
+            "Wrong file format selected; please choose the proper format (.xlsx, .csv)."
+        )
+    return templates.TemplateResponse(
+        "error.html", {"request": request, "error": errmsg}
+    )
