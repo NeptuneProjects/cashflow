@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 from .cashflow import cashflow
 
 SMOKE_TEST = False
-WORKDIR = Path.cwd() / "app" if SMOKE_TEST else Path("/code")
+WORKDIR = Path.cwd() / "app" if SMOKE_TEST else Path("/code/app")
 UPLOAD_DIR = WORKDIR / "upload"
 STATIC_DIR = WORKDIR / "static"
 TMPLT_DIR = WORKDIR / "templates"
