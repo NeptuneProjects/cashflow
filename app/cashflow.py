@@ -20,8 +20,15 @@ def calculate_daily_balance(transactions_by_date, year, month, daysinmonth):
 
 
 def format_df(df, year, month):
-    df["Date"] = [pd.Timestamp(year, month, int(day)) for day in df["Date"]]
-    return df
+    try:
+        df["Date"] = [
+            pd.Timestamp(year=year, month=month, day=int(day)) for day in df["Date"]
+        ]
+        return df
+    except ValueError:
+        raise ValueError(
+            "Value error encountered: check that dates in spreadsheet are valid for current month (e.g., avoid Nov. 31)."
+        )
 
 
 def format_transactions(df_credits, df_debits):

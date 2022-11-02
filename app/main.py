@@ -61,11 +61,17 @@ async def display(request: Request, file: UploadFile = File(...)):
             )
         finally:
             await file.close()
-        plot, transactions = cashflow(filename, jsonflag=True)
-        return templates.TemplateResponse(
-            "display.html",
-            {"request": request, "plot": plot, "transactions": transactions},
-        )
+
+        try:
+            plot, transactions = cashflow(filename, jsonflag=True)
+            return templates.TemplateResponse(
+                "display.html",
+                {"request": request, "plot": plot, "transactions": transactions},
+            )
+        except Exception:
+            return templates.TemplateResponse(
+                "error.html", {"request": request, "error": traceback.format_exc()}
+            )
     elif not file.filename:
         errmsg = "Please go back and select a file."
     else:
